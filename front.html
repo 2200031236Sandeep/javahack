@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Type Login</title>
+    <style>
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          font-family: Arial, sans-serif;
+          background-color: #e6f3fa;
+          margin: 0;
+        }
+        .login-container {
+          width: 400px;
+          background-color: #ffffff;
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+          text-align: center;
+        }
+        .login-container h2 {
+          font-size: 20px;
+          color: #2c89c5;
+          margin-bottom: 20px;
+        }
+        .account-options {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+        }
+        .account-options div {
+          border: 1px solid #dcdcdc;
+          padding: 10px;
+          border-radius: 5px;
+          cursor: pointer;
+          width: 100px;
+        }
+        .account-options div.selected {
+          border-color: #2c89c5;
+        }
+        .account-options div img {
+          width: 40px;
+          margin-bottom: 10px;
+        }
+        .account-options div p {
+          margin: 0;
+          font-size: 14px;
+          color: #555;
+        }
+        .form-group {
+          position: relative;
+          margin-bottom: 20px;
+        }
+        .form-group input {
+          width: 100%;
+          padding: 12px 30px;
+          border: 1px solid #dcdcdc;
+          border-radius: 5px;
+          font-size: 14px;
+        }
+        .form-group input::placeholder {
+          color: #999;
+        }
+        .form-group img {
+          position: absolute;
+          left: 10px;
+          top: 12px;
+          width: 16px;
+        }
+        .form-group a {
+          position: absolute;
+          right: 10px;
+          top: 12px;
+          font-size: 12px;
+          color: #2c89c5;
+          text-decoration: none;
+        }
+        .login-button {
+          width: 100%;
+          padding: 12px;
+          border: none;
+          border-radius: 5px;
+          background-color: #2c89c5;
+          color: #ffffff;
+          font-size: 16px;
+          cursor: pointer;
+        }
+        .signup-link {
+          font-size: 12px;
+          color: #999;
+          margin-top: 15px;
+        }
+        .signup-link a {
+          color: #2c89c5;
+          text-decoration: none;
+          font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Choose Account Type</h2>
+    <div class="account-options">
+        <div class="selected" onclick="selectAccount('Doctor')">
+            <img src="images/doctor.png" alt="Doctor Icon">
+            <p>Doctor</p>
+        </div>
+        <div onclick="selectAccount('Patient')">
+            <img src="images/patient.jpg" alt="Patient Icon">
+            <p>Patient</p>
+        </div>
+        <div onclick="selectAccount('Admin')">
+            <img src="images/admin.jpeg" alt="Admin Icon">
+            <p>Admin</p>
+        </div>
+    </div>
+    <p id="greeting-message">Hello doctor!<br>Please fill out the form below to get started</p>
+    <div class="form-group">
+        <img src="images/user.jpeg" alt="Email Icon">
+        <input type="email" placeholder="Mahisadd@gmail.com">
+    </div>
+    <div class="form-group">
+        <img src="images/lock.png" alt="Password Icon">
+        <input type="password" placeholder="Password">
+        <a href="#">Forgot?</a>
+    </div>
+    <button class="login-button" onclick="redirectToDashboard()">Login</button>
+    <p class="signup-link">No account? <a href="#">Signup</a></p>
+</div>
+
+<script>
+    let selectedRole = 'Doctor'; // Default selection
+
+    function selectAccount(role) {
+        // Remove 'selected' class from all account options
+        document.querySelectorAll('.account-options div').forEach(div => {
+            div.classList.remove('selected');
+        });
+
+        // Add 'selected' class to clicked account option
+        event.target.closest('div').classList.add('selected');
+
+        // Update selectedRole based on clicked role
+        selectedRole = role;
+
+        // Update greeting message based on selected role
+        const greetingMessage = document.getElementById('greeting-message');
+        greetingMessage.innerHTML = `Hello ${role.toLowerCase()}!<br>Please fill out the form below to get started`;
+    }
+
+    function redirectToDashboard() {
+        let dashboardUrl = '';
+
+        // Set the dashboard URL based on selectedRole
+        if (selectedRole === 'Doctor') {
+            dashboardUrl = '/doctor-dashboard.html';
+        } else if (selectedRole === 'Patient') {
+            dashboardUrl = '/paidah.html';
+        } else if (selectedRole === 'Admin') {
+            dashboardUrl = 'admindash.html';
+        }
+
+        // Redirect to the appropriate dashboard
+        window.location.href = dashboardUrl;
+    }
+</script>
+
+</body>
+</html>
